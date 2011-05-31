@@ -1,0 +1,551 @@
+
+ \documentclass[11pt]{article}
+
+% If you just want to change part of the text, use
+%{\fontsize{11pt}{12pt}\selectfont text here}
+
+
+\usepackage{graphicx}
+\usepackage{color}
+
+\DeclareGraphicsExtensions{.eps,.ps,.tif,.gif,.bmp,.jpg}
+
+\newcommand{\mycaption}[2]{\parbox{\linewidth}{\fontsize{9pt}{9pt}\selectfont{\bf Figure #1. } #2}}
+
+\newcommand{\mycaptext}[2]{\parbox{\linewidth}{\fontsize{9pt}{9pt}\selectfont{\bf #1 } #2}}
+
+\newcommand{\mycaptionb}[2]{\parbox{\linewidth}{\fontsize{7pt}{7pt}\selectfont{\bfeight Figure #1. } #2}}
+
+\newcommand{\mylabel}[2]{\parbox{\linewidth}{\fontsize{9pt}{9pt}\selectfont{\centerline{{\bf  #1}}\nl }\centerline{\bf  #2}}}
+
+\newcommand{\myline}[1]{\parbox{\linewidth}{\fontsize{9pt}{9pt}\selectfont{\centerline{{\bf  #1}}}}}
+
+\newcommand{\mylinesm}[1]{\parbox{\linewidth}{\fontsize{7pt}{7pt}\selectfont{\centerline{{ #1}}}}}
+
+\newcommand{\mylinelsm}[1]{\parbox{\linewidth}{\fontsize{7pt}{7pt}\selectfont{\leftline{{ #1}}}}}
+
+\newcommand{\mynotel}[1]{\parbox{\linewidth}{\fontsize{9pt}{9pt}\selectfont{\leftline{{\bfnine  #1}}}}}
+
+\newcommand{\mynoter}[1]{\parbox{\linewidth}{\fontsize{9pt}{9pt}\selectfont{\rightline{{\bfnine  #1}}}}}
+
+
+\include{defont2}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\linespread{0.93}
+%\linespread{1.5}
+
+
+
+\makeatletter
+\renewcommand \thefigure
+     {\@arabic\c@figure}
+\long\def\@makecaption#1#2{%
+  \vskip\abovecaptionskip
+  \sbox\@tempboxa{\fontsize{9pt}{10pt}\selectfont{\bf#1:} #2}%
+  \ifdim \wd\@tempboxa >\hsize
+    {\fontsize{9pt}{10pt}\selectfont{\bf #1:} #2}\par
+  \else
+    \global \@minipagefalse
+    \hb@xt@\hsize{\hfil\box\@tempboxa\hfil}%
+  \fi
+  \vskip\belowcaptionskip}
+\makeatother
+
+
+%\setlength{\parskip}{10pt}
+\setlength{\parindent}{0pt}
+%\setlength{\parindent}{2mm}
+%\setlength{\textheight}{224mm}
+%\setlength{\topmargin}{-2mm}
+%\setlength{\textwidth}{156mm}
+%\setlength{\oddsidemargin}{3mm}
+\addtolength{\textheight}{10mm} 
+\addtolength{\topmargin}{-5mm}
+
+
+\newcommand{\dirpathicerough}{/Users/uch/ws/icerough/plots}
+\newcommand{\dirpathsigmaselect}{/Users/uch/ws/sigma/plots/grd_det/SERC/cluster/training_plots/select}
+\newcommand{\dirpathelforig}{/Users/uch/ws/sigma/v11}
+\newcommand{\dirpathelfa}{/Users/uch/ws/sigma/v11a}
+
+
+ \begin{document}
+
+\hfill ~/searise.annals/searise.annals.20110529.tex\break 
+{\it Manuscript for Annals of Glaciology for the IGS International Symposium on Interactions of Ice Sheets and Glaciers with the Ocean,
+La Jolla 5-10 June 2011}
+
+
+\bs
+\bs
+{\bf On the Influence of Outlet Glaciers in Greenland Bed Topography
+on Results from Dynamic Ice Sheet Models}
+\bs
+
+{\it Ute C. Herzfeld$^{(1,2,3)}$, Brian McDonald$^{(1,2)}$, Bruce F. Wallin$^{(1,4)}$, Phillip A. Chen$^{(1,2)}$,
+Carlton J. Leuschen$^{(5)}$, John Paden$^{(5)}$, 
+Ralf Greve$^{(6)}$, James Fastook$^{(7)}$, Andreas Aschwanden$^{(8)}$, Ed Bueler$^{(8)}$
+
+% (Herzfeld@tryfan.colorado.edu) \hfill  2010-04-26\break}
+%  (Herzfeld@tryfan.colorado.edu) \hfill  2011-02-16\break}
+% deleted Joel Plummer as coauthor
+
+}
+
+{\bf Corresponding author:} Ute Herzfeld, herzfeld@tryfan.colorado.edu, uch5678@gmail.com,\nl
+CIRES, University of Colorado Boulder, Boulder, Colorado, USA \nl
+80309-0449, USA, 
+ fon +1-303-735-5164\nl
+ fax +1-303-492-2468\nl
+
+
+{\it
+(1) Cooperative Institute for Research in Environmental Sciences, University of Colorado Boulder, Boulder, Colorado, USA 
+
+(2) Department of Electrical, Computer and Energy Engineering,  University of Colorado Boulder, USA
+
+(3) Department of Applied Mathematics, University of Colorado Boulder, USA
+
+(4) now at: New Mexico Tech, Department of Applied Mathematics, USA
+
+(5)  Center for Remote Sensing of Ice Sheets (CReSIS), University of Kansas, Lawrence, Kansas 66045, USA
+
+(6) Institute of Low Temperature Science,  Hokkaido University, Sapporo, Japan
+
+(7) Department of Computer Science, University of Maine, USA
+
+(8) University of Alaska Fairbanks, USA
+}
+
+%"Ralf Greve" <greve@lowtem.hokudai.ac.jp>, <fastook@maine.edu>,
+
+\bs
+{\bf Abstract.}
+Presently occurring changes in the Earth's climate and the cryosphere cause changes
+in sea level, and the societal relevance of these natural processes motivates an estimation of maximal sea-level rise in the medium-term future as a worst-case scenario. Dynamic ice sheet models are used to estimate the contribution
+of mass loss from the Greenland ice sheet. 
+Mass transfer from ice sheet to ocean is to a large part through outlet glaciers through calving and melt-water processes.
+Outlet glaciers have a higher velocity than the inland ice and 
+ are more sensitive to climatic change than other parts of the 
+Greenland ice sheet.
+Bed topography plays an important role in ice dynamics,
+since the acceleration from the slow-moving inland ice to the formation of an ice stream is in many cases caused by
+the existence of a subglacial trough.
+A problem lies in the fact that subglacial troughs of most outlet glaciers are features of a scale that is not
+resolved in most ice sheet models. 
+
+In this paper we present an algorithm that uses principles from mathematical morphology and topology to correctly
+represent subscale features such as troughs in a DEM generalization at larger scale, so the effect of troughs on ice flow are not ``lost" in models. Radar measurements of bed topography collected by the Center of Remote Sensing of Ice Sheets are used to improve the Greenland bed. The DEM is available as SeaRISE Greenland bed data set dev1.2 under
+http://websrv.cs.umt.edu/isis/index.php/SeaRISE\_Assessment.
+The sensitivity of variables in ice sheet models to the input variable bed topography is studied for several Greenland ice sheet models. Results indicate that correct representation of bed topography is essential to modeling ice flow, elevation and mass changes, and hence to assess possible sea-level rise. 
+ More generally,  this study helps to bridge the conceptual gap between data analysis and geophysical modeling approaches in an important question  of ice-ocean interaction. 
+ 
+ \vb
+ 
+ [ToDo UCH: When paper is finished, adjust abstract. Put IceBridge in the abstract and name the models. 
+ Name the 4 glacial areas. Summarize some results]
+ 
+ [ToDo UCH: Use IGS Annals Latex cls. No numbered sections etc.]
+ 
+ \bs
+ {\bf (1) Introduction.} 
+ 
+  [ToDo UCH:]
+ 
+ 
+ Problem and Previous work and Goal of this paper.
+ 
+ use Jakbed algo paper or CESM abstract or WCRP abstract. 
+ 
+ \bs
+ {\bf (2) Approach}
+
+The variable in the focus of the investigations in this paper is subglacial bed topography of the Greenland ice
+sheet and its outlet glaciers.
+The approach spans the components (1) radar data collection and analysis, (2) development and application of algorithms for inclusion of sub-scale topographic relief of troughs in a DEM of bed topography at a lower, 5-km scale, (3) comparative runs with several dynamic ice-sheet models, (4) analysis of the sensitivity of 
+modeled  variables (surface elevation, velocity and basal water [what? content? level?]) on bed topography, and (5) assessment of its relevance for prediction of sea-level rise.
+
+Observations of the glacier bed (interface ice-rock) as collected by the Center for Remote Sensing of 
+Ice Sheets (CReSIS) with the MCORDS radar (see section (3) ``Data") form the basis of the analyses, especially new data collected over major outlet glaciers, Jakobshavns Isbr\ae\, Helheim Glacier, Kangerdlussuaq and 
+Peterman Glacier. In the last years starting in 2009, these observations have been carried out as part of NASA's Operation IceBridge (website[]); observations date back as far as 1997 [UCH ?]. The data have a very high resolution, especially in along-track direction, with large gaps between tracks. Another problem is that
+the radar signal does not properly represent the topography in regions of high relief, as it may reflect off the canyon sides. 
+
+[maybe summarize in MCORDS data section (3) how this is treated? ToDo: JP.]
+
+The development and application of an algorithm that allows inclusion of troughs in bed DEMs of lower resolution is the first central part of our study.  The algorithm uses  geostatistics for calculating small-scale grids
+as a form of data aggregation. Principles from algebraic topology and mathematical morphology are then applied to ensure that subglacial canyons have the correct, observed depth and are continuous (simply connected). If a canyon has several branches that have been observed, then all branches are retained at their 
+locally near-maximal depth  in the lower-resolution DEM.
+
+The goal of the algorithm is to optimally bridge between data observation and modeling, and this goal has influenced the philosophy driving selection and  derivation of computational methods (see section 4). 
+While instrumentation may be improved, more data may need to be collected and ice-sheet model resolutions
+may need to be increased in the future, the role of such an algorithm is to be able to obtain better results from 
+presently collected data with current modeling techniques. 
+
+So far, this is a working hypthesis that will be tested in several case studies which form the second center of this work. To test the dependence of model results on the input subglacial bed topography, several ice-dynamic models  are run for old-bed and for new bed with outlet glacier troughs represented as described above.
+Models include UMIS, PISM, and SICOLPOLIS ([spell out, ref1999999]).
+Model variables are selected based on the following rationale:
+
+%Investigate the effects on ice surface velocity and basal sliding potential as indicated by presence of water in the bed.
+
+ Changes in the Greenland ice sheet and its outlet glaciers relevant for assessment of sea-level rise have two main components: (1) mass loss from melting and (2) acceleration of outlet glaciers.
+ Mass loss is directly related to changes in surface elevation over time, therefore surface elevation at different times  and surface elevation differences and their dependence on bed topography will be calculated.
+ Acceleration of outlet glaciers is captured in  predictions of surface velocity and its changes, dependent on representations of bed topography. 
+ 
+ Basal sliding plays an important part in acceleration of outlet glaciers.
+ To investigate changes at the bottom of a glacier, the variable ``water in bed" is included in the analyses.
+  Presence of water in the glacier bed is the result of pressure melting. Since the load at the ice-bed interface
+ depends on mass of the overlying ice sheet, the amount of water depends directly on the thickness of the ice sheet in a given location. Assuming correct ice-surface elevation (adequately observed and interpolated, and/or unchanged between model runs), depth of the glacier bed in a trough is directly related to basal sliding.
+
+
+For prediction of future changes, the evolution of surface elevation (relevant for mass loss and contribution to sea-level rise),
+surface velocity and basal sliding, over the next 200 years will be modeled.
+ The time interval of 200 years is chosen, because this is the time interval for predictions a part of the European-led Ice2Sea  (website) project and the U.S.-American-led SeaRise community effort (website).
+
+
+
+\bs
+ {\bf (3)  Data}
+ 
+ 
+
+ CReSIS data were collected using the University of Kansas, Multi-channel
+Coherent Radar Depth Sounder (MCoRDS) for mapping subglacial topography
+(Gogineni et al., 2001; Lohoefener, 2006).  
+
+CReSIS data were collected using the University of Kansas, Multi-channel
+Coherent Radar Depth Sounder (MCoRDS) for mapping subglacial topography
+(Gogineni et al., 2001; Lohoefener, 2006).  For the presented
+measurements, the system was operated using a 3 to 10 microsecond chirped
+pulse with a 150 MHz center frequency and 20 MHz bandwidth.  The system
+was deployed on both a P-3 and Twin Otter aircraft using wing-mounted
+dipole antenna arrays.  Data are processed in the along track using
+synthetic aperture radar algorithms, and up to eight independent receive
+channels are used to provide cross-track clutter reduction through array
+processing techniques. 
+
+
+ Measurements are referenced to location using DGPS (differential GPS) trajectories (based on WGS84 ellipsoid) provided by the
+Airborne Topographic Mapper (ATM) group at NASA Goddard Space Flight Center,
+Wallops Flight Facility (W. Krabill and collaborators).
+  MCORDS data differ as a result of development of the instrumentation, acquisition type and data processing between 1997 and 2010. Newer data use bed elevation and surface altimetry recorded during the same flights, whereas older data utilize Airborne Topographic Mapper (ATM) altimetry to derive thickness data. 
+As part of this study, all MCORDS data collected up to 2010 were used for the four outlet glacier regions. 
+To keep the study focused on the trough-representation problem, the data outside of the four study regions was left unchanged from that in Bamber et al. (2001), which is the Greenland bed used by SeaRise at the beginning of this study (2010) [UCH: file name of 093.nc] (see Herzfeld and Wallin,  2011).
+
+ 
+ {\it Projections:} CReSIS uses a polar stereographic projection (see Snyder, 1987) with central meridians at -45$^\circ$ longitude and
+ 90$^\circ$ latitude and latitude of true scale at 70$^\circ$ N.
+ SeaRise uses a polar stereographic projection with central meridians at -39$^\circ$ longitude and
+ 90$^\circ$ latitude and latitude of true scale at 71$^\circ$ N. The algorithm used here transforms accordingly. Data are output as stacks of several variables, which also include precipitation, [ToDo: complete variables list, JF] in the netcdf format preferred by the modeling community [website].
+
+[ToDo: complete variables list, JF]
+ 
+ \vb
+ \bs
+ {\bf (4) The algorithm for troughs} [UCH: better subtitle]
+ 
+ The motivation for the algorithm is the notion that ice-dynamic models yield best results if the input data are processed with modeling in mind. Specifically, the goal is to design an algorithm to model DEMs such that the physics of a modeled variable that depends on the DEM is unaltered. 
+ The computational idea  is to design an objective mathematical-morphology algorithm that reduces grid resolution in a DEM  in a way that the effect of the subscale topography  of a canyon with high topographic relief and  a sub-grid-scale width at the bottom is preserved,
+in ice sheet models and other dynamical geophysical models.
+In consequence, we need to 
+reduce the resolution of the spatial information available on the bed, while still preserving those morphologic characteristics that force the ice flow, mass balance, and glacial retreat of the Greenland ice sheet
+and of Jakobshavn Isbr\ae\  in dynamic ice sheet models. As an aside, it may be worth mentioning that the 
+modeling need takes priority over the optical appearance of the resultant grid, which is coarse when
+viewed at the 5km resolution for small areas of several tens of kilometers in diameter.
+
+The modeled glacier bed needs to satisfy the following requirements: to preserve the correct locally maximal depth of the trough (property 1), the facts that the trough is continuous (property 2) and that its rim is rounded by erosion (property 3).
+The resultant algorithm (``jakbed.algo") proceeds by the following steps (Herzfeld and Wallin 2011):
+
+\begin{itemize}
+\item[(1)] {\it Identification of trough locations by tracing the canyon bottom as a simply-connected line.} The concept of 
+simple connectedness stems from algebraic topology and ensures that the glacier flows through the canyon in an unobstructed line or set of branches with a common head/ outlet.  Simple connectedness is implemented in the form of edge-connectedness to match gradient formation in models.
+ 
+\item[(2)] {\it Adjustment of high-resolution grid to trough locations to preserve morphologic characteristics (Morphologic stretch algorithm)}. This sub-algorithm is employed (a) to conserve high-resolution morphology, while the center of the trough may be shifted to the center of the large-scale grid; (b) it also has an edge-rounding effect along the trough set to mimic subglacial erosion and (c) decays towards  the edge of the subregion in which the algorithm is run to facilitate seamless integration into a pre-existing larger DEM, here, the all-Greenland DEM. 
+
+\item[(3)] {\it  Elevation association.} 
+{\it (3.i) Inside the trough set: } To preserve the true depth of Jakobshavn trough, the minimal value in the 5~km neighborhood of the original (non-stretched) grid is assigned as the depth value in a trough-location grid node. This is a consequence of the discussion of the importance of including the correct depth of the canyon in estimates of maximum sea-level rise.
+{\it (3.ii) Outside of the trough set:}  For 5~km-grid locations outside of the trough set, a weighted average is applied in the morph-stretched topology of the high-resolution grid. 
+The average can be distance weighted ($1/d$  or $1/d^2$ with $d$ distance), or weights determined by kriging.  
+Here, $1/d$ is used (search radius 6km for Jak, shorter for Helheim and Kangerdlussuaq).
+\end{itemize}
+
+[UCH: So far. I may change that using Kriging, as done for Peterman.]
+
+This algorithm was applied to generate the SeaRISE data set (version dev1.2) (jak-bed.algo v5).
+ To facilitate generalization, the morph-stretch algorithm has an alternative (jak-bed.algo v6) for the cases that
+ the canyon turns or several trough points are encountered along a profile in across-flow direction or the canyon system has several branches.
+ 
+  The algorithm developed for Jakobshavn Isbr\ae\ (Herzfeld and Wallin 2011) employs the fact that the Jakobshavn trough runs east-west and is a single trough.  To facilitate inclusion of outlet glaciers running in 
+  different directions, which may not be parallel to a coordinate axis, and of glaciers with several branches,
+  the trough-bed algorithm had to be generalized. To automate detection of several branches, minima or hyper-minima are identified, depending on complexity of subglacial morphology. The morph-stretch algorithm may be modified or not applied. For data aggregation (and not for mapping!), we used high-resolution DEMs derived by CReSIS  or specifically derived from along-track data using kriging algorithms of Geomath CU Boulder.
+ --- The generalized jakbed algorithm runs at any scale (not just the 5km scale).
+ 
+ 
+ \bs
+ {\bf (5) Applications to Jak, Hl, Kanger, Peterman -- Study areas, their morphology and relevance for math-morph algorithm}
+ 
+ [for each glacier, give short info on location geography, morphology]
+ 
+  \ss
+ {\it 5.1 Jak}
+ 
+Jak isbrae coordinates in geogr and UTM
+ 
+ 
+ [UCH: modify the following text; or put to introduction]
+ 
+ Jakobshavns Isbr\ae\ (Ilulissat Ice Stream, terminus at $\approx$69$^\circ$10'N/50$^\circ$W)  has not only been long known as the continuously fastest-moving ice stream in Greenland,
+it has also entered a phase of acceleration and rapid retreat in 1999 (Mayer and Herzfeld 2008) and came to a halt approximately in 2007 (Echelmeyer and Harrison, 1990; Echelmeyer et al., 1991, 1992; Abdalati et al., 2003;  Podlech and Weidick, 2004; Mayer and Herzfeld, 2008). The fast-moving ice stream owes its existence to the existence of a deep subglacial geologic trough, that causes the ice to
+accelerate from 30cm/year in the adjacent inland ice to 30m/day (in 1997) (see Figure~1).
+The crevassing that is the result of fast movement of Jakosbhavns Isbr\ae\ extends 80~km into the ice sheet, and the ice stream drains approximately 6\% of the Greenland ice sheet.
+If bed topography is not presented correctly in a dynamic ice-sheet model, then this accelerating effect can not be included in the dynamical system.
+ 
+ [end old text]
+
+ 
+ The 5~km Jakobshavns bed DEM, created using the jakbeg.algo v6, and intermediate steps are presented in Figure~2. The new bed DEM shows a continuous trough with the correct maximal elevation (within the 5~km block) and visually suggests that ice flow will pass unobstructed into the trough and downvalley to the fjord. The canyon rim of the trough is a little rounded, matching the CReSIS observations at this reduced resolution, with a distance-weighted average.
+ The  Jakobshavns region of the DEM of Greenland that was used previously is given for comparison in Figure 5e; this grid is based on the topography published in Bamber et al. (2001) and barely shows an indication of Jakobshavns trough near the mouth of the ice stream. Collection of MCORDS data as part of IceBridge and before IceBridge and application of the new algorithm allowed this advance in bed representation.
+ 
+  The bed used in this study for Jakobshavns Isbr\ae\ is similar to the bed in "dev1.2" (algo 6 here versus algo 5 in dev1.2).
+ The differences in the morphological stretch algorithm are described in detail in Herzfeld and Wallin (2010)
+ and occur wherever the trough is more than one grid node wide or the trough makes a turn.
+ 
+  \ss
+ {\it 5.2 Helheim}
+ 
+ Helheim glacier is located in the Sermilik region of south-eastern Greenland at [coords]. Helheim
+ Glacier has several branches that join a short distance from the current terminus [provide distance from high-res data.] Until 2000, Helheim Glacier was the only glacier in SE Greenland that still advanced at a time when
+ rapid surface lowering was observed for all other glacial areas in SE Greenland (Krabill 199999), but has
+ entered a retreat phase in [?] (ref199999).
+ 
+ To automatically identify the location of the several canyon branches, N-S profiles of subglacial topography
+ were analyzed and a 300~m threshold used.; then E-W profiles were analyzed. The N-S analysis contained
+ all minima needed for derivation of the 5km trough and resulted in an edge-connected trough set.
+
+Topography of the mountain ranges and glacier gorges in this region is especially high, as seen
+ in the photograph of neighboring Skagt Glacier gorge in Figure~1b, which indicates that subglacial troughs
+ have a rugged morphology as well. This is also reflected in the radar data. 
+  The morph-stretch algorithm (which has a rounding effect on the trough edges) is not employed, because of the ruggedness of the terrain and the anisotropic pattern of the several bed branches in a relatively small area.
+ Completion of the 5-km bed follows the generalized JakBed Algorithm.
+ Trough identification and derivation of the 5-km Helheim Bed DEM is illustrated in Figure~3.
+ A 500~m grid derived by CReSIS is used as an interim hi-res grid.
+ 
+Fig: Skagtglacier Gorge photograph.
+ 
+  \ss
+ {\it 5.3 Kanger}
+
+Kangerdlussuaq is  a fast-moving outlet glacier located at [coords] on central eastern Greenland.
+It has a main icestream that flows  SSE and a secondary branch  [check plot].
+ The calculation of the 5km bed for Kangerdlussuaq is carried out as for Helheim glacier, using
+  a 500~m grid derived by CReSIS  as an interim hi-res grid and E-W profiles as dominant for in trough-set
+  identification step, and the lowest point in a neighborhood for elevation association in the trough set. 
+    Derivation of the Kanger-bed is illustrated in Figure~4.
+ 
+ 
+  \ss
+ {\it 5.4 Peterman}
+ 
+ Peterman Glacier, located in northern Greenland [coords], has recently exhibited dramatic changes (KS paper?).
+ An intermediate-step high-res grid at 500~m was derived using kriging with  a Gaussian variogram 
+ (range  1.5km time sqrt(3), sill=, nug = [ToDo UCH]) and kriging software developed by UCH.
+ In the sequel, the generalized math-morph algorithm was applied to derive the 5km grid (Figure~5).
+ 
+ \bs
+ {\bf (6) Ice-Dynamic Models and Setup of Model Runs}
+ 
+ \ss
+ {\it (6.1)  Univ of Main Ice Sheet Model (UMIS?), Jim Fastook}
+ 
+[ToDo JF: brief description, few lines to quarter page ]
+ 
+ For the ms version (20110528) the model was run with a grid resolution of 5km and a 1000-year spinup.
+ For the final paper version, UMIS will be run with a grid resolution of 5km and a 30000-year spinup.
+ 
+ \ss
+ {\it (6.2) SICOPOLIS, Ralf Greve}
+ 
+ [ToDo RG: brief description, few lines to quarter page ]
+ 
+ \ss
+ {\it (6.3) PISM Polar Ice Sheet Model, Andy Aschwanden, Ed Bueler}
+ 
+ [ToDo AA: brief description, few lines to quarter page ]
+ 
+ \bs
+ {\bf (7) Effects of the Glacier Bed on Modeling Results}
+ 
+ 
+ Model runs:
+ 
+ 
+ Variables: 
+ 
+ 
+{\it (7.1)  Control Variables: Surface Elevation and Bed Elevation}
+ 
+[ Not sure we'll put these in, in a short paper, Since the Bed Elevation is in Figs in Section.]
+
+
+ 
+ 
+ 
+ Note that in UMIS results, the difference between BedDiff-1000 and BedDiff  may be an effect of the 1000-year spinup, that was used for the manuscript version. In the 1000 year spinup there are changes in thickness, hence load, and so rebound (or depression) occurs (probably rebound since the model ice sheet is thinner than present). For the final paper version, a 30000-year spinup will be run.
+ 
+ 
+ {\it (7.2) Surface Velocity}
+ 
+ 
+ Surf Velocity and Surf Velocity Differences Plots
+ 
+ For all models (rows), for all glaciers (columns)
+ 
+ surf vel
+ 
+jak: UMIS SIC PISM  (vel) old-bed
+
+jak: UMIS SIC PISM  (vel) new-bed
+ 
+ Hel: UMIS SIC PISM 
+ 
+ 
+ Let's worry about the design later. using results from one model in the same fig makes it easier to assemble,
+ since we are comparing beds, not models.
+ 
+ \ss
+ {\it (7.3) Water in Bed [Better Title]}
+ 
+ 
+ 
+ - Emphasize importance for basal sliding in this section
+% 
+% 
+% Changes in the Greenland ice sheet and its outlet glaciers relevant for assessment of sea-level rise have two main components: (1) mass loss from melting and (2) acceleration of outlet glaciers.
+% Mass loss is directly related to changes in surface elevation over time, therefore surface elevation at different times  and surface elevation differences and their dependence on bed topography will be calculated.
+% Acceleration of outlet glaciers is captured in  predictions of surface velocity and its changes, dependent on representations of bed topography. 
+% 
+% Basal sliding plays an important part in acceleration of outlet glaciers.
+% To investigate changes at the bottom of a glacier, the variable ``water in bed" is included in the analyses.
+%  Presence of water in the glacier bed is the result of pressure melting. Since the load at the ice-bed interface
+% depends on mass of the overlying ice sheet, the amount of water depends directly on the thickness of the ice sheet in a given location. Assuming correct ice-surface elevation (adequately observed and interpolated, and/or unchanged between model runs), depth of the glacier bed in a trough is directly related to basal sliding.
+%
+ 
+ 
+ \bs
+ {\bf (8) Discussion and Outlook.}
+ 
+ {\it Discussion.} 
+ 
+ 
+-- emphasis on bed effects and variables, not on model comparison
+ 
+  [ToDo All: Discussion of Results, once we have them.]
+ 
+ [ToDo: Validation?: I put this up for discussion. I dont think we have room for validation using a number of data sets  for all the case studies (there are already more cases than an annals paper can hold), and this is not the topic of the paper. I suggest to make this the topic of a follow-up paper.]
+ 
+ 
+ \ss
+{\it  Future improvements in observation and mathematical modeling of bed topography.}
+ 
+ -- As more bed-topographic data will be collected as part of NASA's Operation IceBridge and other geophysical surveys, the bed topography may be updated and improved to include more outlet glaciers.
+ 
+ [ToDo UCH: List other ongoing efforts to survey glacier beds. TUD? ]
+ 
+ -- The algorithm outside troughs will be improved, using better interpolation and extrapolation techniques
+ for integration of densely spaced and closely spaced survey profiles, such as advanced forms of Kriging
+ (see, eg. Herzfeld 1992, Herzfeld, Wallin, Stachura 2011).
+ 
+ -- Ridges and other pronounced subglacial morphological features can be included.
+ 
+ -- Last not least, increasing spatial resolution of the grid model, at least in the marginal area of the ice sheet, 
+ is expected to be needed to best resolve outlet glaciers; this point is not treated in this paper, as it is a limitation
+ of many, and not all,  currently used ice-dynamic models, and hence a fixed 5-km grid was adopted as the
+ basis for all SeaRise experiments.
+ 
+ 
+ {\bf (9) Summary and Conclusions:}
+ 
+  [ToDo UCH]
+ 
+ -- Glaciology and prediction: Bed matters. 
+ 
+ 
+ -- Geomath/ data integration: There is a role for geomathematical  data analysis algorithms especially for modeling.
+ 
+--  Relevance for planning of future observations.
+
+
+
+Rest: To bridge between dense to variably spaced observations and lower-resolution models, 
+a mathematical morphological algorithm 
+  
+
+ 
+ 
+ 
+ 
+ \bs
+ {\bf Acknowledgements.} 
+  Analysis of CReSIS data by UCH, BFW and BM supported by NASA Cryospheric Sciences Award NNX09A083G
+``Spatial Ice Surface Roughness - Scale-Dependent Analyses of Ice Surfaces and
+Implications for Cryospheric Sciences and Satellite Altimetry (in Particular, for ICESat and ICESat-2)" (PI U.C.~Herzfeld).
+Assistance with  data analysis  by
+ PAC and BM supported by University of Colorado Boulder Undergraduate Research
+ Opportunity Program. 
+2009 and 2010 MCORDS data collected as part of NASA Operation IceBridge.
+ Field observations and photographs collected during Greenland field projects as part of  DFG He1547/4, He1547/7, He1547/8 and Ma2486/1 supported by Deutsche Forschungsgemeinschaft. All this support is gratefully acknowledged. 
+  Thanks to Joel Plummer, University of Kansas,  for  contributions to processing of Jakobshavns Isbr\ae\ radar data. 
+ 
+ 
+ \bs 
+ {\bf References}
+ 
+ [ToDo: all: provide a selection of the most adequate refs; pls note that the Annals Guide for Authors requests to limit references.]
+ 
+ 
+ \bs
+ 
+ 
+ 
+ 
+ {\bf Figures:}
+ 
+ Fig 1. Glaciology. Geography.
+ 
+ Fig. 1a Jak Isbr\ae satellite ASTER with bed outlined, our Cresis Bed on top.
+ To demonstrate that the fast-moving ice follows the deep trough.
+ 
+ Fig. 1b  Skagt glacier foto.
+ 
+ Fig. 2 DEMs Jak: 
+ 
+ Fig. 3 DEM-Hel
+ 
+ Fig. 4 DEM Kan
+ 
+ Fig. 5 DEM Peterm.
+ 
+ For each glacier: (Jak, Hel, Kan, Peterm)
+ 
+(a)  trough-set  points, superimposed on hi-res data set
+ 
+(b) old-DEM / (c) intermediate-step / (d)  final-step after trough drop-in
+ 
+ Fig 6. old DEM-Gro// new DEM Gro
+ 
+ Fig 7. model results UMIS
+ 
+ Fig 8. Model results SICOPOLIS
+ 
+ Fig. 9 Model Results PISM
+ 
+ select results for all models.
+ 
+[ToDo UCH] plot all results received, then save an intermediate, too long paper version, then subselect for Annals.
+ 
+ 
+ 
+ 
+ 
+ 
+ \end{document}
